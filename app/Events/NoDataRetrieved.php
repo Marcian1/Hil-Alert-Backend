@@ -21,10 +21,11 @@ class NoDataRetrieved implements ShouldBroadcast
      */
 
     public $hil;
-    public function __construct($hil)
+    public $username;
+    public function __construct($hil,$username)
     {
         $this->hil=$hil;
-        
+        $this->username=$username;
     }
 
 
@@ -35,7 +36,7 @@ class NoDataRetrieved implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('general');
+        return new Channel($this->username);
     }
     public function broadcastAs()
     {

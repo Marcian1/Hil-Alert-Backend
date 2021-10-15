@@ -28,7 +28,6 @@ class HilEntryController extends Controller
         $hilEntry->autorun = $request->autorun;
 
         $secondLast = $hil->hilentries()->orderBy('created_at', 'desc')->first();
-
         $hil->hilentries()->save($hilEntry);
 
         $last = $hil->hilentries()->orderBy('created_at', 'desc')->first();

@@ -16,7 +16,7 @@ class HilEntry extends Model
         'autorun'
     ];
     
-    public function hil(){
+    public function hil() {
         return $this->belongsTo(Hil::class);
     }
 
