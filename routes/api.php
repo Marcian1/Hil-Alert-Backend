@@ -18,25 +18,28 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
-Route::post('login', 'UserController@login');
+Route::post('login', 'AuthController@login');
+Route::post('register', 'AuthController@register');
 
-Route::group(['prefix' => '/users'], function() {
-    Route::get('/{user}', 'UserController@show');
-    Route::patch('/{username}', 'UserController@update');
-});
-Route::group(['prefix' => '/hils'], function() {
 
-    Route::get('/', 'HilController@index');
-    Route::post('/', 'HilController@store');
-    Route::delete('/{hil}', 'HilController@destroy');
-    Route::patch('/{hil}', 'HilController@update');
-    Route::group(['prefix' => '/{hil}/hilentries'], function() {
-        Route::post('/', 'HilEntryController@store');
-        Route::get('/', 'HilEntryController@index');
+
+    Route::group(['prefix' => '/users', 'middleware' => 'auth:api'], function() {
+        Route::get('/{user}', 'UserController@show');
+        Route::patch('/{username}', 'UserController@update');
     });
+    Route::group(['prefix' => '/hils','middleware' => 'auth:api'], function() {
 
-});
-Route::group(['prefix' => '/properties'], function() {
-    Route::get('/', 'PropertyController@show');
-    Route::patch('/{username}', 'PropertyController@update');
-});
+        Route::get('/', 'HilController@index');
+        Route::post('/', 'HilController@store');
+        Route::delete('/{hil}', 'HilController@destroy');
+        Route::patch('/{hil}', 'HilController@update');
+        Route::group(['prefix' => '/{hil}/hilentries'], function() {
+            Route::post('/', 'HilEntryController@store');
+            Route::get('/', 'HilEntryController@index');
+        });
+
+    });
+    Route::group(['prefix' => '/properties', 'middleware' => 'auth:api'], function() {
+        Route::get('/', 'PropertyController@show');
+        Route::patch('/{username}', 'PropertyController@update');
+    });

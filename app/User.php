@@ -6,10 +6,11 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Hil;
 use App\Property;
+use Laravel\Passport\HasApiTokens;
 class User extends Authenticatable
 {
-    use Notifiable;
-
+    use HasApiTokens, Notifiable;
+    protected $guarded = ['id'];
     /**
      * The attributes that are mass assignable.
      *
@@ -17,6 +18,9 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'username',
+    ];
+    protected $hidden = [
+        'password',
     ];
 
     public function hils(){
