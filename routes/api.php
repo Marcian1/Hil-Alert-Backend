@@ -20,7 +20,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('login', 'AuthController@login');
 Route::post('register', 'AuthController@register');
-
+Route::post('forgot', 'ForgotController@forgot');
+Route::post('reset', 'ForgotController@reset');
 
 
     Route::group(['prefix' => '/users', 'middleware' => 'auth:api'], function() {

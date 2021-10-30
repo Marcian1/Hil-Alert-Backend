@@ -12,10 +12,10 @@ class AuthController extends Controller
 {
     public function login(Request $request)
     {
-        echo("ASDASDASDASD");
+        
         if (Auth::attempt($request->only('email', 'password'))) {
             $user = Auth::user();
-            echo("ASDASDASDASD");
+          
             $token = $user->createToken('admin')->accessToken;
 
             return [
